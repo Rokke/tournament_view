@@ -1,5 +1,5 @@
 class Tournament {
-  final String key;
+  String key;
   String name;
   String country;
   String place;

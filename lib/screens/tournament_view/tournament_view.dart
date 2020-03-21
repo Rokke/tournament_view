@@ -4,7 +4,7 @@ import 'package:tournamentviewer/services/database.dart';
 import 'package:tournamentviewer/theme/consts.dart';
 
 class TournamentView extends StatefulWidget {
-  Tournament tournament;
+  final Tournament tournament;
   TournamentView(this.tournament, {Key key}) : super(key: key);
 
   @override
@@ -38,10 +38,9 @@ class _TournamentViewState extends State<TournamentView> {
 
   _createNewTournament() async {
     _vent.value = 1;
-    final newTournament = await DatabaseService().createNewTournament(_controllerName.text, _controllerCountry.text);
-    setState(() {
-      widget.tournament = newTournament;
-    });
+    widget.tournament.name = _controllerName.text;
+    widget.tournament.country = _controllerCountry.text;
+    if (await DatabaseService().createNewTournament(widget.tournament)) setState(() {});
     _vent.value = 0;
   }
 

@@ -25,11 +25,12 @@ class DatabaseService {
       print('Ignoring name');
   }
 
-  Future<Tournament> createNewTournament(String name, String country) async {
+  Future<bool> createNewTournament(Tournament tournament) async {
     print('hei');
-    final e = await tournamentCollection.add({'name': name, 'country': country});
+    final e = await tournamentCollection.add({'name': tournament.name, 'country': tournament.country});
     Future.delayed(Duration(seconds: 5));
     print('3');
-    return Tournament(key: e.documentID, name: name, country: country);
+    tournament.key = e.documentID;
+    return true;
   }
 }
